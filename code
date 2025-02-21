@@ -1,0 +1,22 @@
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+df = pd.read_csv("/content/spam.csv")
+lb = LabelEncoder()
+df['c'] = lb.fit_transform(df["Category"])
+final = df.drop(["Category"], axis="columns")
+i = final["Message"]
+o = final["c"]
+from sklearn.feature_extraction.text import CountVectorizer
+c = CountVectorizer()
+from sklearn.model_selection import train_test_split
+x_train , x_test, y_train, y_test = train_test_split(i , o, test_size=0.2, random_state=42)
+x = c.fit_transform(x_train.values)
+from sklearn.naive_bayes import MultinomialNB
+model = MultinomialNB()
+model.fit(x,y_train)
+model.score(c.transform(x_test), y_test)
+e = [
+    "Subject: Congratulations! You’ve Won $1,000,000!Dear Winner,We are pleased to inform you that your email has been randomly selected as the grand prize winner of $1,000,000 USD in the Global Online Lottery 2024.To claim your prize, please provide the following details:Full NameAddressPhone NumberBank DetailsThis is a limited-time offer, and you must claim your prize within 24 hours, or it will be forfeited.Click here to claim now: [Suspicious Link]Best Regards,John DoeMega Millions Lottery Department"
+]
+ex = c.transform(e)
+model.predict(ex)
