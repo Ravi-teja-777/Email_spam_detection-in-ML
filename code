@@ -19,4 +19,8 @@ e = [
     "Subject: Congratulations! You’ve Won $1,000,000!Dear Winner,We are pleased to inform you that your email has been randomly selected as the grand prize winner of $1,000,000 USD in the Global Online Lottery 2024.To claim your prize, please provide the following details:Full NameAddressPhone NumberBank DetailsThis is a limited-time offer, and you must claim your prize within 24 hours, or it will be forfeited.Click here to claim now: [Suspicious Link]Best Regards,John DoeMega Millions Lottery Department"
 ]
 ex = c.transform(e)
-model.predict(ex)
+d = model.predict(ex)
+if d[0] ==0:
+  print("The given mail is not the spam mail")
+else:
+  print("The given mail is a spam mail")
